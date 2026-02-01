@@ -1,4 +1,15 @@
 console.log("Spotify Clone Script Loaded");
+let currentSong = new Audio();
+
+function secondsToMinuteSeconds(seconds){
+    if(isNaN(seconds) || seconds<0){
+        return "";
+    }
+    const minutes = Math.floor(seconds/60);
+    const remainingSeconds = Math.floor(seconds%60);
+
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+}
 
 async function getSongs() {
     let a = await fetch("http://127.0.0.1:3000/songs/")
@@ -17,11 +28,25 @@ async function getSongs() {
     return songs;
 
 }
+
+const playMusic = (track, pause=false) => {
+    // let audio = new Audio("/songs/"+track)
+    currentSong.src="/songs/"+track;
+    if(!pause){
+        
+        currentSong.play();
+        play.src="pausebutton.svg";
+    }
+    document.querySelector(".songinfo").innerText=track.replace("%5C"," ");
+    document.querySelector(".songtime").innerText=`0:00/0:00`;
+}
+
 async function main(){
 
-    let currentSong;
+    
     //Get the list of all songs
 let songs =await getSongs();
+playMusic(songs[0], true);
 
 //Show all the song in the playlist
 let songUL=document.querySelector(".songlist").getElementsByTagName("ul")[0];
@@ -38,7 +63,39 @@ for (const song of songs) {
 }
 
 //Attach an event listener to each song
-document.querySelector(".songlist").getElementsByTagName("li");
+Array.from(document.querySelector(".songlist").getElementsByTagName("li")).forEach(e => {
+    e.addEventListener("click",element=>{
+        
+    console.log(e.querySelector(".info").firstElementChild.innerText);
+    playMusic(e.querySelector(".info").firstElementChild.innerText);
+    });
+})
+
+//Attach event listener to play next and previous buttons
+play.addEventListener("click",()=>{
+    if(currentSong.paused){
+        currentSong.play();
+        play.src="pausebutton.svg";
+    }else{
+        currentSong.pause();
+        play.src="playbutton.svg";
+    }
+});
+
+//Listen for timeupdate event on audio element
+currentSong.addEventListener("timeupdate",()=>{
+    console.log(currentSong.currentTime, currentSong.duration);
+    document.querySelector(".songtime").innerText=`${secondsToMinuteSeconds(currentSong.currentTime)}/${secondsToMinuteSeconds(currentSong.duration)}`; //CWH : document.querySelector(".songtime").innerText=`${secondsToMinuteSeconds(currentSong.currentTime)}`;
+    document.querySelector(".circle").style.left=`${(currentSong.currentTime/currentSong.duration)*100}%`;
+    
+})
+
+//Add an event listener to the seekbar
+
+document.querySelector(".seekbar").addEventListener("click",(e)=>{
+    console.log(e);
+
+});
 
 }
 main();
