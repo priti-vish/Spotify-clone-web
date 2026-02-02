@@ -99,5 +99,16 @@ document.querySelector(".seekbar").addEventListener("click",(e)=>{
 
 });
 
+//Add an event listener to the hamburger
+document.querySelector(".hamburgercontainer").addEventListener("click",()=>{
+    document.querySelector(".left").style.left="0";
+
+})
+
+//Add an event listener to the close button
+document.querySelector(".close").addEventListener("click",()=>{
+    document.querySelector(".left").style.left="-120%";
+});
+
 }
 main();
