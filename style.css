@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
+:root {
+    --a:0
+}
 * {
     margin: 0;
     padding: 0;
@@ -110,6 +112,7 @@ body {
     border-radius: 5px;
     background-color: #252525;
     position: relative;
+    transition: all 0.9s;
 
 }
 
@@ -123,11 +126,25 @@ body {
 }
 
 .play {
-    top: 273px;
+    width: 28px;
+    height: 29px;
+    background-color: #1fdf64;
+    border-radius: 50%;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 168px;
     position: absolute;
     right: 17px;
-    opacity: 0;
+    opacity: var(--a);
     transition: all 1s ease-out;
+}
+
+.card:hover{
+    background-color: rgb(56, 55, 55);
+    cursor: pointer;
+    --a:1;
 }
 
 .buttons>* {
