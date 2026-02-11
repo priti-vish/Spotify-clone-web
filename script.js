@@ -72,20 +72,23 @@ const playMusic = (track, pause = false) => {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`/songs/`)
+    let a = await fetch(`http://127.0.0.1:3000/songs/`)
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
     let anchors=div.getElementsByTagName("a")
     let cardContainer=document.querySelector(".cardContainer");
-    Array.from(anchors).forEach(async e=>{
+    let array = Array.from(anchors)
+        for (let i = 0; i < array.length; i++) {
+            const e = array[i];
+        
         if(e.href.includes("%5Csongs")){
             let folder= e.href.split("%5C").slice(-1)[0].split("/").slice(0,-1).join("/");
 
             //Get the metadata of the folder
-            let a = await fetch(`/songs/${folder}/info.json`)
+            let a = await fetch(`http://127.0.0.1:3000/songs/${folder}/info.json`)
             let response = await a.json();
-            console.log(response);
+            
             cardContainer.innerHTML= cardContainer.innerHTML +`<div data-folder="${folder}" class="card">
                         <div class="play">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -98,9 +101,9 @@ async function displayAlbums() {
                         <img src="/songs/${folder}/cover.jpg" alt="">
                         <h2>${response.title}</h2>
                         <p>${response.description}</p>
-                    </div>`
+                    </div>`;
         }
-    })
+    }
 }
 
 async function main() {
@@ -183,6 +186,21 @@ async function main() {
             
         })
     })
+
+    //Add the event listener to the volume for mute
+    document.querySelector(".volume>img").addEventListener("click", (e) => {
+
+        if(e.target.src.includes("volume.svg")){
+            e.target.src = e.target.src.replace("volume.svg","mute.svg");
+            currentSong.volume=0;
+            document.querySelector(".range").getElementsByTagName("input")[0].value=0;
+        }else{
+            e.target.src = e.target.src.replace("mute.svg","volume.svg");
+            currentSong.volume=0.1;
+            document.querySelector(".range").getElementsByTagName("input")[0].value=10;
+        }
+    })
+     
 
 }
 main();
