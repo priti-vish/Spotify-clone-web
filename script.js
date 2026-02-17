@@ -1,4 +1,3 @@
-console.log("Spotify Clone Script Loaded");
 let currentSong = new Audio();
 let songs;
 let currFolder;
@@ -47,14 +46,14 @@ async function getSongs(folder) {
     let songUL = document.querySelector(".songlist").getElementsByTagName("ul")[0];
     songUL.innerHTML = "";
     for (const song of songs) {//
-        songUL.innerHTML = songUL.innerHTML + `<li><img class="invert" src="music.svg" alt="" height="20" width="20" style="margin-top: 9px;">
+        songUL.innerHTML = songUL.innerHTML + `<li><img class="invert" src="img/music.svg" alt="" height="20" width="20" style="margin-top: 9px;">
                             <div class="info">
                                 <div>${decodeURIComponent(song)}</div> 
                                 <div>Taylor</div>
                             </div>
                             <div class="playnow">
                                 <span>Play Now</span>
-                                <img src="playbutton.svg" alt="" class="invert" height="26" width="26">
+                                <img src="img/playbutton.svg" alt="" class="invert" height="26" width="26">
                             </div></li>`;
     }
 
@@ -71,12 +70,13 @@ async function getSongs(folder) {
 const playMusic = (track, pause = false) => {
     // let audio = new Audio("/songs/"+track)
 
-    currentSong.src = `/${currFolder}/` + track; //currentSong.src = `/songs/` + track;
+    currentSong.src = `/${currFolder}/` + track; //`/${currFolder}/` + track; //currentSong.src = `/songs/` + track;
+
 
     if (!pause) {
 
         currentSong.play();
-        play.src = "pausebutton.svg";
+        play.src = "img/pausebutton.svg";
     }
     document.querySelector(".songinfo").innerText = decodeURIComponent(track);
     document.querySelector(".songtime").innerText = `0:00/0:00`;
@@ -137,12 +137,12 @@ async function main() {
 
     //Get the list of all songs
     await getSongs("songs/annie"); //await getSongs("songs%5C" + folder + "%5C");
-    // playMusic(songs[0], true);
-    if (songs.length > 0) {
-        playMusic(songs[0], true);
-    } else {
-        console.log("No songs found!");
-    }
+    playMusic(songs[0]);
+    // if (songs.length > 0) {
+    //     playMusic(songs[0], true);
+    // } else {
+    //     console.log("No songs found!");
+    // }
 
 
     //Display all the albums of the page
@@ -152,10 +152,10 @@ async function main() {
     play.addEventListener("click", () => {
         if (currentSong.paused) {
             currentSong.play();
-            play.src = "pausebutton.svg";
+            play.src = "img/pausebutton.svg";
         } else {
             currentSong.pause();
-            play.src = "playbutton.svg";
+            play.src = "img/playbutton.svg";
         }
     });
 
@@ -215,19 +215,19 @@ async function main() {
     Array.from(document.getElementsByClassName("card")).forEach(e => {
         e.addEventListener("click", async item => {
             songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);// songs = await getSongs("songs%5C" + item.currentTarget.dataset.folder + "%5C");
-            playMusic(songs[0], true);
+            playMusic(songs[0]);
         })
     })
 
     //Add the event listener to the volume for mute
     document.querySelector(".volume>img").addEventListener("click", (e) => {
 
-        if (e.target.src.includes("volume.svg")) {
-            e.target.src = e.target.src.replace("volume.svg", "mute.svg");
+        if (e.target.src.includes("img/volume.svg")) {
+            e.target.src = e.target.src.replace("img/volume.svg", "img/mute.svg");
             currentSong.volume = 0;
             document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
         } else {
-            e.target.src = e.target.src.replace("mute.svg", "volume.svg");
+            e.target.src = e.target.src.replace("img/mute.svg", "img/volume.svg");
             currentSong.volume = 0.1;
             document.querySelector(".range").getElementsByTagName("input")[0].value = 10;
         }

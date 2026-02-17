@@ -247,6 +247,7 @@ body {
 
 .hamburger {
     display: none;
+    cursor: pointer;
 }
 
 .hamburgercontainer {
@@ -339,6 +340,7 @@ body {
         top: 25px;
         right: 31px;
         width: 30px;
+        cursor: pointer;
     }
 
     .timevol{
@@ -351,6 +353,7 @@ body {
 
     .close {
         display: block;
+
     }
 
     .right {
@@ -378,7 +381,7 @@ body {
     }
 
     .card {
-        width: 44vw;
+        width: 55vw;
     }
 
     .cardContainer {
@@ -389,11 +392,19 @@ body {
     .songinfo, .songtime{
         width: auto;
     }
+    .cardContainer {
+    
+    max-height: auto;
+}
 }
 
-@media (max-width: 550px) {
+@media (max-width: 500px) {
 
     .card {
-        width: 90vw;
+        width: auto;
     }
+    .cardContainer {
+    
+    max-height: auto;
+}
 }
