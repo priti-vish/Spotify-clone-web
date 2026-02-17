@@ -380,6 +380,8 @@ body {
         display: block;
     }
 
+
+
     .card {
         width: 55vw;
     }
@@ -394,17 +396,37 @@ body {
     }
     .cardContainer {
     
-    max-height: auto;
+    max-height: unset;
+        overflow-y: unset;
+}
+.playbar{
+    right: 45px;
+      
+  
 }
 }
 
 @media (max-width: 500px) {
 
     .card {
-        width: auto;
+        width: 100%;
     }
-    .cardContainer {
-    
-    max-height: auto;
-}
+    .header>* {
+        padding: 5px;
+    }
+
+    .buttons{
+        margin: 0 6px;
+    }
+  
+    .spotifyPlaylists h1{
+        padding: 4px;
+    }
+    .playbar{
+        right: 10px;
+    }
+    .hamburgercontainer{
+        gap: 6px;
+    }
+
 }

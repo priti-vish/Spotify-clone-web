@@ -208,6 +208,9 @@ async function main() {
     //Add an event listener to volume slider
     document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("input", (e) => {
         currentSong.volume = parseInt(e.target.value) / 100;
+        if(currentSong.volume >0){
+            document.querySelector(".volume>img").target.src = document.querySelector(".volume>img").src.replace("img/mute.svg", "img/volume.svg");
+        }
 
     })
 
